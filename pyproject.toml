@@ -7,11 +7,7 @@ authors = [
 ]
 dependencies = [
     "ipython>=8.16.1",
-    "polars>=0.19.6",
     "duckdb>=0.9.0",
-    "geopandas>=0.14.0",
-    "matplotlib>=3.8.0",
-    "pyqt6>=6.5.2",
     "ipdb>=0.13.13",
     "pyarrow>=13.0.0",
 ]
