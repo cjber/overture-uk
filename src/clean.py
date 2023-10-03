@@ -30,8 +30,6 @@ def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
     ).add_prefix("sources_")
     print("source done")
 
-    brand = pd.json_normalize(df["brand"])
-
     brand = pd.json_normalize(
         pd.json_normalize(df["brand"])["names.brand_names_common"].map(
             lambda x: x[0] if not isinstance(x, float) else {}
