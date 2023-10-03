@@ -1,11 +1,11 @@
 import duckdb
 
-# # admins
+# admins
 # with open("./queries/uk_admins.sql") as f:
 #     admins_query = f.read()
 # duckdb.query(admins_query)
-#
-# # buildings
+
+# buildings
 # with open("./queries/uk_buildings.sql") as f:
 #     buildings_query = f.read()
 # duckdb.query(buildings_query)
