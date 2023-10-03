@@ -15,7 +15,6 @@ COPY (
     FROM
         read_parquet('s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins/type=*/*', hive_partitioning=1)
     WHERE
-    WHERE
         bbox.minx > -9.0
         AND bbox.maxx < 2.01
         AND bbox.miny > 49.75
