@@ -11,6 +11,8 @@ dependencies = [
     "ipdb>=0.13.13",
     "pyarrow>=13.0.0",
     "geopandas>=0.14.0",
+    "h3pandas>=0.2.4",
+    "dagshub>=0.3.8.post1",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
