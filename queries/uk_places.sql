@@ -27,5 +27,5 @@ COPY (
         AND bbox.maxx < 2.01
         AND bbox.miny > 49.75
         AND bbox.maxy < 61.01
-    ) TO 'data/uk_places.gpkg'
+    ) TO 'data/raw/uk_places.gpkg'
 WITH (FORMAT GDAL, DRIVER 'GPKG');
