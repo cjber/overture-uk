@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 mask = gpd.GeoSeries(gpd.read_file("~/data/LAD_BUC_2022.gpkg").unary_union, crs=27700)
 columns = ["names_value", "category_main", "brand_name_value", "geometry"]
 
-df = gpd.read_parquet("./data/processed/uk_places.parquet", columns=columns)
+df = gpd.read_parquet("", columns=columns)
 df = df.to_crs(27700).clip(mask=mask)
 print(df.head())
 ```

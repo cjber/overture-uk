@@ -26,7 +26,7 @@ I strongly recommend you use a virtual environment to manage the dependencies in
 
 ## Query Overture Dataset
 
-1. Add the bounding box for Nepal in the `params.yaml` file.
+1. Add the bounding box for Nepal in the `pipelines/custom/params.yaml` file.
 
 ```yaml
 # nepal
@@ -38,7 +38,7 @@ bounds:
     maxy: 30.4470
 ```
 
-2. Run `dvc repro` to retrieve and clean the Nepal data.
+2. Run `dvc repro pipelines/custom/params.yaml` to retrieve and clean the Nepal data.
     - The cleaned dataset will be saved to `data/processed/nepal_places.parquet`.
 
 > ___Note:__ For large datasets, this process will take a long time._
@@ -47,7 +47,7 @@ bounds:
 
 The following section demonstrates an example analysis of the resultant dataset using `geopandas` and `matplotlib`.
 
-1. Import the required libraries.
+First we need to import the following libraries:
 
 ```{python} 
 import geodatasets
@@ -56,10 +56,12 @@ import h3pandas
 import matplotlib.pyplot as plt
 ```
 
-2. Read in the dataset using `geopandas` and print the first 5 rows.
-    - Mask using the extent of the Nepal census tract to remove outside points
-    - Filter to only show rows that are brands
-    - Only showing some interesting columns
+- `geodatasets` is used here to provide a national boundary for Nepal, which allows us to clip the results to exclude all points that are within the bounding box, but external to the country.
+- `geopandas` provides a variety of spatial dataframe tools, allowing for the geoparquet file to be read in as a dataframe, and processed.
+- `h3pandas` provides utility functions to generate H3 hexagons from the H3 metadata included in the processed Overture data.
+- `matplotlib` provides plotting functionality.
+
+We then read in the dataset using `geopandas`, clipping using the Nepal boundary and filtering out some less interesting columns. We then print the top five rows of this dataframe. 
 
 ```{python}
 mask = gpd.read_file(geodatasets.get_path("geoda.nepal")).unary_union.buffer(0.01)
@@ -70,14 +72,14 @@ df = df.to_crs(4326).clip(mask=mask)  # non-parquet files can be clipped when re
 print(df.head())
 ```
 
-3. Show the top 5 main categories of places in Nepal.
+The Overture data includes some data regarding place categories. The following shows the top 5 categories for places in Nepal.
 
 ```{python} 
 cats = df["category_main"].value_counts().head()
 print(cats)
 ```
 
-4. Filter by the 'Public and Government Association' category and plot the results aggregated into H3 hexagons.
+We then filter by the 'Public and Government Association' category and plot the results aggregated into H3 hexagons.
 
 ```{python} 
 df_filtered = (
