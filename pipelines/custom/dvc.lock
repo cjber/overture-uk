@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  query:
+    cmd: python -m src.query --minx 80.0601 --maxx 88.204 --miny 26.3475 --maxy 30.447
+      --filename nepal_places
+    outs:
+    - path: ./data/raw/nepal_places.gpkg
+      hash: md5
+      md5: 53cb98b9b11a3dd166aeefeec8b81c5d
+      size: 108433408
+  clean:
+    cmd: python -m src.clean --filename nepal_places
+    deps:
+    - path: ./data/raw/nepal_places.gpkg
+      hash: md5
+      md5: 53cb98b9b11a3dd166aeefeec8b81c5d
+      size: 108433408
+    outs:
+    - path: ./data/processed/nepal_places.parquet
+      hash: md5
+      md5: b3e8ef6d3595f1cf3a499e9284fbbb95
+      size: 32870368

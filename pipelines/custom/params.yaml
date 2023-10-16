@@ -1,0 +1,15 @@
+# nepal
+filename: nepal_places
+bounds:
+    minx: 80.0601
+    maxx: 88.2040
+    miny: 26.3475
+    maxy: 30.4470
+
+# # seattle
+# filename: seattle_places
+# bounds:
+#   minx: -122.4447744
+#   maxx: -122.2477071
+#   miny: 47.5621587
+#   maxy: 47.7120663

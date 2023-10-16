@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  query:
+    cmd: python -m src.query --minx -9.0 --maxx 2.01 --miny 49.75 --maxy 61.01 --filename
+      uk_places
+    outs:
+    - path: ./data/raw/uk_places.gpkg
+      hash: md5
+      md5: 079fde4c6059d7081dbe22698617231e
+      size: 1442713600
+  clean:
+    cmd: python -m src.clean --filename uk_places
+    deps:
+    - path: ./data/raw/uk_places.gpkg
+      hash: md5
+      md5: 079fde4c6059d7081dbe22698617231e
+      size: 1442713600
+    outs:
+    - path: data/processed/uk_places.parquet
+      hash: md5
+      md5: 62e6470311da7c62ef58adb7e4047d7f
+      size: 428256826
+  uk_postprocessing:
+    cmd: python -m src.uk_postprocessing --filename uk_places
+    deps:
+    - path: ./data/processed/uk_places.parquet
+      hash: md5
+      md5: 62e6470311da7c62ef58adb7e4047d7f
+      size: 428256826
+    outs:
+    - path: ./data/processed/uk_places_admin.parquet
+      hash: md5
+      md5: c34d2be401d95b306c077aa38ccca936
+      size: 415458339
