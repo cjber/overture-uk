@@ -44,7 +44,7 @@ len(tesco)
 4. Plot Tesco points
 
 ```{python} 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(10, 10))
 
 gpd.GeoSeries(mask).plot(facecolor="lightgrey", edgecolor="black", ax=ax)
 tesco.plot(
