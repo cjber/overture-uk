@@ -1,0 +1,99 @@
+---
+title: "Nepal Places"
+format: ipynb
+---
+
+The following document demonstrates the ability to easily query the Overture dataset using this python project. 
+
+## Setup Environment
+
+I strongly recommend you use a virtual environment to manage the dependencies in the project. This project uses [pdm](https://pdm.fming.dev/), however any other tool like `pip` with `virtualenv` or `conda` could be used.
+
+1. Ensure local `python` version is `3.11` or greater.
+
+2. Install project dependencies from the `pyproject.toml` file.
+    - `pip install .` for `pip`
+    - `pdm install` for `pdm`
+    - `conda install` for `conda`
+
+## Query Overture Dataset
+
+1. Add the bounding box for Nepal in the `params.yaml` file.
+
+```yaml
+# nepal
+filename: nepal_places
+bounds:
+    minx: 80.0601
+    maxx: 88.2040
+    miny: 26.3475
+    maxy: 30.4470
+```
+
+2. Run `dvc repro` to retrieve and clean the Nepal data.
+    - The cleaned dataset will be saved to `data/processed/nepal_places.parquet`.
+
+> ___Note:__ For large datasets, this process will take a long time._
+
+## Generate Analysis
+
+The following section demonstrates an example analysis of the resultant dataset using `geopandas` and `matplotlib`.
+
+1. Import the required libraries.
+
+```{python} 
+import geodatasets
+import geopandas as gpd
+import h3pandas
+import matplotlib.pyplot as plt
+```
+
+2. Read in the dataset using `geopandas` and print the first 5 rows.
+    - Mask using the extent of the Nepal census tract to remove outside points
+    - Filter to only show rows that are brands
+    - Only showing some interesting columns
+
+```{python}
+mask = gpd.read_file(geodatasets.get_path("geoda.nepal")).unary_union.buffer(0.01)
+columns = ["names_value", "category_main", "brand_name_value", "h3_05", "geometry"]
+
+df = gpd.read_parquet("data/processed/nepal_places.parquet", columns=columns)
+df = df.to_crs(4326).clip(mask=mask)  # non-parquet files can be clipped when read in
+df.head()
+```
+
+3. Show the top 5 main categories of places in Nepal.
+
+```{python} 
+cats = df["category_main"].value_counts().head()
+print(cats)
+```
+
+4. Filter by the 'Public and Government Association' category and plot the results aggregated into H3 hexagons.
+
+```{python} 
+df_filtered = (
+    df[df["category_main"] == cats.keys()[1]]
+    .loc[:, ["h3_05", "category_main"]]
+    .assign(count=1)
+    .groupby(["h3_05", "category_main"])
+    .sum()
+    .reset_index()
+    .set_index("h3_05")
+    .h3.h3_to_geo_boundary()
+    .clip(mask=mask)
+)
+df_filtered.head()
+```
+
+```{python} 
+fig, ax = plt.subplots()
+
+gpd.GeoSeries(mask).plot(facecolor="lightgrey", edgecolor="black", ax=ax)
+df_filtered.plot("count", ax=ax, scheme="fisherjenks", legend=True, legend_kwds={"frameon":False})
+
+ax.axis("off")
+
+plt.title(f"{cats.keys()[1].title().replace('_', ' ')}")
+plt.show()
+```
