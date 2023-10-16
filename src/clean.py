@@ -1,8 +1,18 @@
 import ast
 import json
+from argparse import ArgumentParser
+from pathlib import Path
 
 import geopandas as gpd
+import h3pandas  # noqa
 import pandas as pd
+
+parser = ArgumentParser()
+parser.add_argument("--filename", type=str, required=True)
+
+args = parser.parse_args()
+
+filename = Path(args.filename)
 
 
 def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
@@ -34,6 +44,11 @@ def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
 
     df = df.drop(cols, axis=1)
     df = pd.concat([df, names, categories, addresses, sources, brand], axis=1)
+
+    df["lat"], df["lng"] = df.geometry.x, df.geometry.y
+
+    for i in range(1, 10):
+        df[f"h3_0{i}"] = df.h3.geo_to_h3(i).index
     return df
 
 
@@ -55,13 +70,10 @@ def remove_list_cols(df: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
 
 
 if __name__ == "__main__":
-    uk_places = gpd.read_file("./data/raw/uk_places.gpkg")
+    places = gpd.read_file(f"./data/raw/{filename}.gpkg")
 
-    uk_places = process_columns(
-        uk_places, ["names", "categories", "addresses", "sources", "brand"]
+    places = process_columns(
+        places, ["names", "categories", "addresses", "sources", "brand"]
     )
-    uk_places = add_list_cols(uk_places, ["websites", "socials", "phones"])
-    uk_places.to_parquet("./data/processed/uk_places_cleaned.parquet")
-
-    uk_places = remove_list_cols(uk_places)
-    uk_places.to_file("./data/uk_places_cleaned.gpkg", driver="GPKG")
+    places = add_list_cols(places, ["websites", "socials", "phones"])
+    places.to_parquet(f"./data/processed/{filename}.parquet")
