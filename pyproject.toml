@@ -13,6 +13,11 @@ dependencies = [
     "geopandas>=0.14.0",
     "h3pandas>=0.2.4",
     "dagshub>=0.3.8.post1",
+    "dvc>=3.26.1",
+    "geodatasets>=2023.3.0",
+    "mapclassify>=2.6.1",
+    "numba>=0.58.0",
+    "dvc-s3>=2.23.0",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
