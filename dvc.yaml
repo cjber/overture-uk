@@ -1,0 +1,16 @@
+stages:
+  query:
+    cmd: >-
+      python -m src.query
+      ${bounds}
+      --filename ${filename}
+    outs:
+      - ./data/raw/${filename}.gpkg
+  clean:
+    deps:
+      - ./data/raw/${filename}.gpkg
+    cmd: >-
+      python -m src.clean
+      --filename ${filename}
+    outs:
+      - data/processed/${filename}.parquet
