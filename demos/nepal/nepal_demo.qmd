@@ -1,6 +1,14 @@
 ---
-title: "Nepal Places"
-format: ipynb
+title: Nepal Places
+author: Cillian Berragan
+date: last-modified
+toc: true
+format: 
+  ipynb: default
+  # html:
+  #   embed-resources: true
+  #   code-fold: true
+  #   code-tools: true
 ---
 
 The following document demonstrates the ability to easily query the Overture dataset using this python project. 
@@ -57,7 +65,7 @@ import matplotlib.pyplot as plt
 mask = gpd.read_file(geodatasets.get_path("geoda.nepal")).unary_union.buffer(0.01)
 columns = ["names_value", "category_main", "brand_name_value", "h3_05", "geometry"]
 
-df = gpd.read_parquet("data/processed/nepal_places.parquet", columns=columns)
+df = gpd.read_parquet("./data/processed/nepal_places.parquet", columns=columns)
 df = df.to_crs(4326).clip(mask=mask)  # non-parquet files can be clipped when read in
 print(df.head())
 ```
