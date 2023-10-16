@@ -59,7 +59,7 @@ columns = ["names_value", "category_main", "brand_name_value", "h3_05", "geometr
 
 df = gpd.read_parquet("data/processed/nepal_places.parquet", columns=columns)
 df = df.to_crs(4326).clip(mask=mask)  # non-parquet files can be clipped when read in
-df.head()
+print(df.head())
 ```
 
 3. Show the top 5 main categories of places in Nepal.
@@ -83,7 +83,7 @@ df_filtered = (
     .h3.h3_to_geo_boundary()
     .clip(mask=mask)
 )
-df_filtered.head()
+print(df_filtered.head())
 ```
 
 ```{python} 
