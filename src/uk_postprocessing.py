@@ -63,4 +63,5 @@ if __name__ == "__main__":
             "LEP21CD2",
             "LEP21NM2",
         ]
+    )
     places.to_parquet(f"./data/processed/{filename}_admin.parquet")
