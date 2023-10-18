@@ -63,13 +63,4 @@ if __name__ == "__main__":
             "LEP21CD2",
             "LEP21NM2",
         ]
-    ).rename(
-        {
-            "id": "overture_id",
-            "names_value": "name",
-            "category_main": "category",
-            "category_alternate": "category_alt",
-            "sources_dataset": "source",
-        }
-    )
     places.to_parquet(f"./data/processed/{filename}_admin.parquet")
