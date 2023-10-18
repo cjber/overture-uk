@@ -30,5 +30,5 @@ stages:
     outs:
     - path: ./data/processed/uk_places_admin.parquet
       hash: md5
-      md5: c34d2be401d95b306c077aa38ccca936
-      size: 415458339
+      md5: 1e12b1ab1c1eb77435530f534119ee53
+      size: 375657632
