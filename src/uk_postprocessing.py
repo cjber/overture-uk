@@ -53,9 +53,8 @@ if __name__ == "__main__":
     places = add_uk_attributes(places, oa, oa_lookup, sdz, nidz, lad)
     places = places.drop(
         columns=[
-            "geometry",
             "names_language",
-            "source_property",
+            "sources_property",
             "sources_recordid",
             "brand_name_language",
             "LEP21CD1",
@@ -64,4 +63,4 @@ if __name__ == "__main__":
             "LEP21NM2",
         ]
     )
-    places.to_parquet(f"./data/processed/{filename}_admin.parquet")
+    places.to_parquet(f"./data/processed/{filename}_admin.parquet", index=False)
