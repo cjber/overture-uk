@@ -17,9 +17,11 @@ The following document demonstrates the ability to easily query the Overture dat
 
 I strongly recommend you use a virtual environment to manage the dependencies in the project. This project uses [pdm](https://pdm.fming.dev/), however any other tool like `pip` with `virtualenv` or `conda` could be used.
 
-1. Ensure local `python` version is `3.11` or greater.
+1. Clone this repository locally. `git clone https://github.com/cjber/overture-uk.git`
 
-2. Install project dependencies from the `pyproject.toml` file.
+2. Ensure local `python` version is `3.11` or greater
+
+3. Install project dependencies from the `pyproject.toml` file
     - `pip install .` for `pip`
     - `pdm install` for `pdm`
     - `conda install` for `conda`
