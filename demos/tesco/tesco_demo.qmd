@@ -2,7 +2,6 @@
 title: Tesco Locations
 author: Cillian Berragan
 date: last-modified
-toc: true
 format: 
   ipynb: default
 ---
@@ -11,14 +10,14 @@ The following document demonstrates the ability to easily query the cleaned UK d
 
 ## Analysis
 
-1. Import the required libraries.
+1. Import the required libraries
 
 ```{python} 
 import geopandas as gpd
 import matplotlib.pyplot as plt
 ```
 
-2. Read in the dataset using `geopandas` and print the first 5 rows.
+2. Read in the dataset using `geopandas` and print the first 5 rows
     - Mask using the extent of the UK to remove outside points
     - Filter to only show rows that are brands
     - Only show some interesting columns
@@ -29,7 +28,7 @@ import matplotlib.pyplot as plt
 mask = gpd.GeoSeries(gpd.read_file("~/data/LAD_BUC_2022.gpkg").unary_union, crs=27700)
 columns = ["names_value", "category_main", "brand_name_value", "geometry"]
 
-df = gpd.read_parquet("", columns=columns)
+df = gpd.read_parquet("./data/processed/uk_places_admin.parquet", columns=columns)
 df = df.to_crs(27700).clip(mask=mask)
 print(df.head())
 ```

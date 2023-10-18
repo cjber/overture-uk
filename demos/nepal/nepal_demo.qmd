@@ -2,13 +2,8 @@
 title: Nepal Places
 author: Cillian Berragan
 date: last-modified
-toc: true
 format: 
   ipynb: default
-  # html:
-  #   embed-resources: true
-  #   code-fold: true
-  #   code-tools: true
 ---
 
 The following document demonstrates the ability to easily query the Overture dataset using this python project. 
