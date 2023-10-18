@@ -10,42 +10,40 @@ The following document demonstrates the ability to easily query the cleaned UK d
 
 ## Analysis
 
-1. Import the required libraries
+First we import the required libraries:
 
 ```{python} 
 import geopandas as gpd
 import matplotlib.pyplot as plt
 ```
 
-2. Read in the dataset using `geopandas` and print the first 5 rows
-    - Mask using the extent of the UK to remove outside points
-    - Filter to only show rows that are brands
-    - Only show some interesting columns
-
-> _**NOTE:** The Local Authority Boundaries for the United Kingdom is available [here](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-may-2023-boundaries-uk-buc/explore)._
+We then read in the dataset using `geopandas` and print the first 5 rows:
 
 ```{python}
-mask = gpd.GeoSeries(gpd.read_file("~/data/LAD_BUC_2022.gpkg").unary_union, crs=27700)
 columns = ["names_value", "category_main", "brand_name_value", "geometry"]
 
 df = gpd.read_parquet("./data/processed/uk_places_admin.parquet", columns=columns)
-df = df.to_crs(27700).clip(mask=mask)
-print(df.head())
+df.head()
 ```
 
-3. Show number of Tesco locations
+The following code block prints the total number of points that are classified as part of the 'Tesco' brand:
 
 ```{python} 
 tesco = df.loc[df["brand_name_value"] == "Tesco"]
 len(tesco)
 ```
 
-4. Plot Tesco points
+We then plot these points, colouring by the name of each location:
+
+> **NOTE:** The Local Authority Boundaries for the United Kingdom is available [here](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-may-2023-boundaries-uk-buc/explore).
 
 ```{python} 
 fig, ax = plt.subplots(figsize=(10, 10))
 
-gpd.GeoSeries(mask).plot(facecolor="lightgrey", edgecolor="black", ax=ax)
+
+lad = gpd.GeoSeries(gpd.read_file("~/data/LAD_BUC_2022.gpkg").unary_union, crs=27700)
+
+gpd.GeoSeries(lad).plot(facecolor="lightgrey", edgecolor="black", ax=ax)
 tesco.plot(
     "names_value",
     ax=ax,
