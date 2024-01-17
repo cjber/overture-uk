@@ -2,9 +2,7 @@
 name = ""
 version = ""
 description = ""
-authors = [
-    {name = "cjber", email = "cjberragan@gmail.com"},
-]
+authors = []
 dependencies = [
     "ipython>=8.16.1",
     "duckdb>=0.9.0",

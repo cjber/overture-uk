@@ -1,0 +1,53 @@
+---
+execute:
+    echo: false
+    cache: true
+    warning: false
+format:
+  arxiv-pdf:
+    keep-tex: true  
+    linenumbers: false
+    doublespacing: false
+---
+
+# Supplementary material {-}
+
+\renewcommand{\thetable}{\roman{table}}
+\renewcommand{\thefigure}{\roman{figure}}
+
+_Overture data product attributes_
+
+\def\arraystretch{1.5}
+\begin{table}[H]
+\caption{\label{tablei} Attributes in Overture UK open data product, with an additional indicator describing which attributes were processed out of their nested JSON format.}
+\centering
+\bigskip
+\begin{tabular}{p{6cm}p{6cm}c}
+\hline
+\multicolumn{1}{c}{\textbf{Attribute}}                                                                        & \multicolumn{1}{c}{\textbf{Description}}                                                                     & \textbf{Processed} \\
+\hline
+id                                                                                                   & Unique ID assigned by Overture.                                                                     & N         \\
+updatetime, version                                                                                  & Information about the version (and date) of the Overture data - most recent.                        & N         \\
+confidence                                                                                           & Attribute assigned by Overture                                                                      & N         \\
+websites, socials, emails, phones                                                                    & Contact information and social media associated with POI.                                           & N         \\
+names\_value                                                                                         & POI name.                                                                                           & Y         \\
+category\_main, category\_alternative                                                                & Assigned category for POI.                                                                          & Y         \\
+addresses\_postcode, addresses\_freeform, addresses\_country, addresses\_locality, addresses\_region & Address information for POI.                                                                        & Y         \\
+sources\_dataset                                                                                     & Data source (meta or microsoft)                                                                     & N         \\
+lat, lng                                                                                             & Coordinates for POI.                                                                                & N         \\
+h3\_01 ... h3\_09                                                                                    & H3 addresses for each POI.                                                                          & N         \\
+easting, northing                                                                                    & Coordiantes for POI.                                                                                & N         \\
+LAD22CD ... LGD2014\_nm                                                                              & Administrative geographies for each POI, different for England/Wales, Scotland and Northern Ireland & N         \\
+\hline
+\end{tabular}
+\end{table}
+
+_Scraping Overture data for specific brands_
+
+As discussed in the main body, extracting a complete list of POIs for a brand (e.g., Waitrose) is difficult due to missing values in the category and brand columns. For example, selecting all POIs by brand, as below in Figure i, results in 0 POIs for Waitrose, and 1,934 POIs for Spar. 
+
+![R code snippet highlighting brand filtering of POIs.](./figures/figure2.png){fig-pos='H'}
+
+However, by integrating additional filters, specifically on the POI name and the POI category columns, you can get to the final list of POIs for each retail brand, which closely resemble those in the Geolytix dataset. For example, in Figure ii we show that the brand and name columns need to be filtered to extract all Spar supermarket stores, and name and category columns need to be filtered to extract all Waitrose supermarkets (excluding petrol stations and other retail formats). This code snippet (Figure ii) results in 420 POIs for Waitrose, and 2,308 POIs for Spar, as in Table 1. This has strong implications for future use of this dataset, where users should consider POI name, brand and category if seeking to extract a complete list of POIs for specific research questions or applications. 
+
+![Code snippet highlighting additional filtering of POI attributes.](./figures/figure3.png){fig-pos='H'}
