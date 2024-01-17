@@ -1,6 +1,7 @@
 import ast
 import json
 from argparse import ArgumentParser
+from collections.abc import Iterable
 from pathlib import Path
 
 import geopandas as gpd
@@ -18,7 +19,7 @@ filename = Path(args.filename)
 def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
     for col in cols:
         df[col] = df[col].apply(
-            lambda x: json.loads(x) if not isinstance(x, (float, type(None))) else x
+            lambda x: x if isinstance(x, (float, type(None))) else json.loads(x)
         )
 
     names = pd.json_normalize(
@@ -28,17 +29,17 @@ def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
     categories = pd.json_normalize(df["categories"]).add_prefix("category_")
 
     addresses = pd.json_normalize(
-        df["addresses"].map(lambda x: x[0] if not isinstance(x, float) else {}),
+        df["addresses"].map(lambda x: x[0] if isinstance(x, Iterable) else {}),
         meta_prefix=True,
     ).add_prefix("addresses_")
 
     sources = pd.json_normalize(
-        df["sources"].map(lambda x: x[0] if not isinstance(x, float) else {})
+        df["sources"].map(lambda x: x[0] if isinstance(x, Iterable) else {})
     ).add_prefix("sources_")
 
     brand = pd.json_normalize(
         pd.json_normalize(df["brand"])["names.brand_names_common"].map(
-            lambda x: x[0] if not isinstance(x, float) else {}
+            lambda x: x[0] if isinstance(x, Iterable) else {}
         )
     ).add_prefix("brand_name_")
 
@@ -55,9 +56,7 @@ def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
 def add_list_cols(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
     for col in cols:
         df[col] = df[col].apply(
-            lambda x: ast.literal_eval(x)
-            if not isinstance(x, (float, type(None)))
-            else []
+            lambda x: [] if isinstance(x, (float, type(None))) else ast.literal_eval(x)
         )
     return df
 
