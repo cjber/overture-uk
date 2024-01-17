@@ -18,6 +18,8 @@ filename = Path(args.filename)
 query = f"""
 -- adapted from https://github.com/OvertureMaps/data/blob/main/duckdb_queries/places.sql
 -- bounding box from https://epsg.io/27700
+INSTALL httpfs;
+INSTALL spatial;
 
 LOAD httpfs;
 LOAD spatial;
@@ -50,3 +52,8 @@ WITH (FORMAT GDAL, DRIVER 'GPKG');
 """
 
 duckdb.query(query)
+
+# remove left-over rtree file
+rtree_file = Path(f"data/raw/{filename}.gpkg.tmp_rtree_{filename}.db")
+if rtree_file.exists():
+    rtree_file.unlink()
