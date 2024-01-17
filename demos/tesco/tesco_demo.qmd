@@ -1,9 +1,10 @@
 ---
 title: Tesco Locations
-author: Cillian Berragan
 date: last-modified
 format: 
-  ipynb: default
+  html:
+    keep-ipynb: true
+    embed-resources: true
 ---
 
 The following document demonstrates the ability to easily query the cleaned UK dataset for Tesco shop locations.
