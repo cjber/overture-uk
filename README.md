@@ -6,9 +6,21 @@ Uses [DuckDB](https://duckdb.org/) through Python to query the [Overture Maps Da
 
 Different geographic extents may be specified to retrieve data for different regions.
 
-## Replicate UK results
+## Reproduce results
 
-It is highly recommended to use a virtual environment to reproduce these results locally. Note that full replication of this dataset requires the following files:
+It is highly recommended to use a virtual environment to reproduce these results locally.
+
+1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture_cleaning`.
+
+2. Ensure the python version is `>=3.11` (I recommend using `pyenv`).
+
+2. `pip install -f requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
+
+3. Run `dvc init` (if `.dvc` is missing)
+
+### Replicate UK results
+
+ Note that full replication of this dataset requires the following files that cannot be reditributed:
 
 ```bash
 "~/data/OA_2021_BGC.gpkg": Output Areas for 2021
@@ -22,27 +34,17 @@ Without these files, the processing will retrieve and clean the UK Overture data
 
 Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area please see the next section.
 
-To replicate our UK results:
+To replicate our UK results, first setup the project as instructed above, then:
 
-1. Ensure the python version is `>=3.11` (I recommend using `pyenv`).
+* Run `dvc repro pipelines/uk_full/dvc.yaml`
 
-2. `pip install -f requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
+### Reproduce results for other bounding boxes
 
-3. Run `dvc init`
+Contained in `pipelines/custom/` is a `params.yaml` that may be used to specify the bounding box for another location. This file demos either Nepal, or Seattle.
 
-4. Run `dvc repro pipelines/uk_full/dvc.yaml`
+To retrieve the Overture data for these bounding boxes, first initialise the project as above, then:
 
-## Reproduce results for other bounding boxes
-
-Contained in `pipelines/custom/` a `params.yaml` may be used to specify the bounding box for another location. This file demos either Nepal, or Seattle.
-
-To retrieve the Overture data for these bounding boxes, first initialise the project as above:
-
-1. Ensure the python version is `>=3.11`.
-
-2. `pip install -f requirements.txt` or equivalent (This project uses `pdm`).
-
-3. Edit `pipelines/custom/params.yaml`: Adjust the `filename` and `bounds` as necessary. Smaller areas will be much faster.
+1. Edit `pipelines/custom/params.yaml`: Adjust the `filename` and `bounds` as necessary. Smaller areas will be much faster.
 
 `cat pipelines/custom/params.yaml`
 ```bash
@@ -60,9 +62,7 @@ bounds:
   miny: 47.5621587
   maxy: 47.7120663
 ```
-4. Run `dvc init`
-
-5. Run: `dvc repro pipelines/custom/dvc.yaml`
+2. Run: `dvc repro pipelines/custom/dvc.yaml`
 
 ## Common Issues
 
