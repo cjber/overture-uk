@@ -22,16 +22,15 @@ Without these files, the processing will retrieve and clean the UK Overture data
 
 Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area please see the next section.
 
+To replicate our UK results:
 
-To replicate our results:
+1. Ensure the python version is `>=3.11` (I recommend using `pyenv`).
 
-1. Ensure the python version is `>=3.11`.
+2. `pip install -f requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
 
-1. `pip install -f requirements.txt` or equivalent (This project uses `pdm`).
+3. Run `dvc init`
 
-2. Run `dvc init`
-
-3. Run `dvc repro pipelines/uk_full/dvc.yaml`
+4. Run `dvc repro pipelines/uk_full/dvc.yaml`
 
 ## Reproduce results for other bounding boxes
 
@@ -41,15 +40,33 @@ To retrieve the Overture data for these bounding boxes, first initialise the pro
 
 1. Ensure the python version is `>=3.11`.
 
-1. `pip install -f requirements.txt` or equivalent (This project uses `pdm`).
+2. `pip install -f requirements.txt` or equivalent (This project uses `pdm`).
 
-2. Run `dvc init`
+3. Edit `pipelines/custom/params.yaml`: Adjust the `filename` and `bounds` as necessary. Smaller areas will be much faster.
 
-3. Edit `pipelines/custom/params.yaml`
+`cat pipelines/custom/params.yaml`
+```bash
+# filename: nepal_places
+# bounds:
+#     minx: 80.0601
+#     maxx: 88.2040
+#     miny: 26.3475
+#     maxy: 30.4470
 
-4. Run: `dvc repro pipelines/custom/dvc.yaml`
+filename: seattle_places
+bounds:
+  minx: -122.4447744
+  maxx: -122.2477071
+  miny: 47.5621587
+  maxy: 47.7120663
+```
+4. Run `dvc init`
+
+5. Run: `dvc repro pipelines/custom/dvc.yaml`
 
 ## Common Issues
+
+### Leftover rtree files
 
 ```python
 > dvc repro pipelines/uk_full/dvc.yaml
