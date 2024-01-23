@@ -8,7 +8,7 @@ Different geographic extents may be specified to retrieve data for different reg
 
 ## Reproduce results
 
-It is highly recommended to use a virtual environment to reproduce these results locally.
+It is highly recommended to use a virtual environment to reproduce these results locally (e.g. using `venv`).
 
 1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture_cleaning`.
 
@@ -17,6 +17,10 @@ It is highly recommended to use a virtual environment to reproduce these results
 2. `pip install -f requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
 
 3. Run `dvc init` (if `.dvc` is missing)
+
+4. Create the output data directory: `mkdir -p data/processed data/raw`
+
+_**NOTE:** Downloading the Overture data will take a long time, and it will appear like nothing is happening. To verify that the data is still being downloaded you can look inside the `data/raw` directory_
 
 ### Replicate UK results
 
