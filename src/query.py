@@ -18,6 +18,7 @@ filename = Path(args.filename)
 query = f"""
 -- adapted from https://github.com/OvertureMaps/data/blob/main/duckdb_queries/places.sql
 -- bounding box from https://epsg.io/27700
+
 INSTALL httpfs;
 INSTALL spatial;
 
