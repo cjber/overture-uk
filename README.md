@@ -8,19 +8,20 @@ Different geographic extents may be specified to retrieve data for different reg
 
 ## Reproduce results
 
-It is highly recommended to use a virtual environment to reproduce these results locally (e.g. using `venv`).
+It is highly recommended to use a virtual environment to reproduce these results locally (e.g. using `python -m venv`).
 
-1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture_cleaning`.
+1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture-uk`.
 
 2. Ensure the python version is `>=3.11` (I recommend using `pyenv`).
 
 2. `pip install -f requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
 
-3. Run `dvc init` (if `.dvc` is missing)
+3. Run `dvc init` (only if `.dvc` directory is missing)
 
 4. Create the output data directory: `mkdir -p data/processed data/raw`
 
-_**NOTE:** Downloading the Overture data will take a long time, and it will appear like nothing is happening. To verify that the data is still being downloaded you can look inside the `data/raw` directory_
+
+_**NOTE:** Please ensure that there are no residual files within the `raw/` directory before running analysis; files ending in `*.gpkg.tmp_rtree_uk_places.db` will not be overwritten and will cause errors.
 
 ### Replicate UK results
 
@@ -31,20 +32,20 @@ _**NOTE:** Downloading the Overture data will take a long time, and it will appe
 "~/data/OA_lookup-2021.csv": Output Areas lookup for 2021
 "~/data/SG_DataZoneBdry_2011.zip": Scotland DataZones for 2011
 "~/data/NI_DZ21.zip": Northern Ireland DataZones for 2021
-"~/data/LAD_BUC_2022.gpkg"): Local Authority Districts for 2022
+"~/data/LAD_BUC_2022.gpkg": Local Authority Districts for 2022
 ```
 
-Without these files, the processing will retrieve and clean the UK Overture data, but the final stage of post-processing will fail.
+Without these files, the processing will retrieve and clean the UK Overture data, but the final stage of post-processing to attach census information and remove non-UK points will **fail**. Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area please see the next section.
 
-Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area please see the next section.
-
-To replicate our UK results, first setup the project as instructed above, then:
+To replicate our UK results, first set up the project as instructed above, then:
 
 * Run `dvc repro pipelines/uk_full/dvc.yaml`
 
+_**NOTE:** Downloading the Overture data will take a long time, and it will appear like nothing is happening. To verify that the data is still being downloaded you can look inside the `data/raw` directory; the output file size will be increasing._
+
 ### Reproduce results for other bounding boxes
 
-Contained in `pipelines/custom/` is a `params.yaml` that may be used to specify the bounding box for another location. This file demos either Nepal, or Seattle.
+Contained in `pipelines/custom/` is a `params.yaml` that may be used to specify the bounding box for another location. This file contains demos for either Nepal, or Seattle.
 
 To retrieve the Overture data for these bounding boxes, first initialise the project as above, then:
 
@@ -68,9 +69,13 @@ bounds:
 ```
 2. Run: `dvc repro pipelines/custom/dvc.yaml`
 
+_**NOTE:** Downloading the Overture data will take a long time, and it will appear like nothing is happening. To verify that the data is still being downloaded you can look inside the `data/raw` directory; the output file size will be increasing._
+
 ## Common Issues
 
 ### Leftover rtree files
+
+When running any pipeline using `dev repro`, the following error may occur.
 
 ```python
 > dvc repro pipelines/uk_full/dvc.yaml
@@ -81,7 +86,7 @@ Running stage 'pipelines/uk_full/dvc.yaml:query':
 Traceback (most recent call last):
   File "<frozen runpy>", line 198, in _run_module_as_main
   File "<frozen runpy>", line 88, in _run_code
-  File "/home/cjber/drive/projects/overture_cleaning/src/query.py", line 54, in <module>
+  File "{..}/src/query.py", line 54, in <module>
     duckdb.query(query)
 duckdb.duckdb.IOException: IO Error: GDAL Error (1): sqlite3_exec(PRAGMA journal_mode = OFF;
 PRAGMA synchronous = OFF;
@@ -89,11 +94,11 @@ CREATE VIRTUAL TABLE my_rtree USING rtree(id, minx, maxx, miny, maxy)) failed: t
 ERROR: failed to reproduce 'pipelines/uk_full/dvc.yaml:query': failed to run: python -m src.query --minx -9.0 --maxx 2.01 --miny 49.75 --maxy 61.01 --filename uk_places, exited with 1
 ```
 
-This error means that a residual file is left over from a previous run. To solve this error, please remove the file `uk_places.gpkg.tmp_rtree_uk_places.db` from `./data/raw/`.
+This error means that a residual file is left over from a previous run. To solve this error, please remove the file `uk_places.gpkg.tmp_rtree_uk_places.db` (or equivalent) from `./data/raw/`.
 
 ## Bug fixes
 
-1. There was a bug with the previous version where the following lines in `clean.py` were failing:
+1. There was a bug with the previous version where the following code in `clean.py` was failing:
 
 ```python
 lambda x: x[0] if not isinstance(x, float) else {}
