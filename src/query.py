@@ -13,6 +13,13 @@ parser.add_argument("--filename", type=str, required=True)
 args = parser.parse_args()
 
 filename = Path(args.filename)
+raw_dir = Path("data/raw")
+processed_dir = Path("data/processed")
+
+if not raw_dir.exists():
+    raw_dir.mkdir(parents=True)
+if not processed_dir.exists():
+    processed_dir.mkdir(parents=True)
 
 # buildings
 query = f"""
