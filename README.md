@@ -21,7 +21,7 @@ It is highly recommended to use a virtual environment to reproduce these results
 4. Create the output data directory: `mkdir -p data/processed data/raw`
 
 
-_**NOTE:** Please ensure that there are no residual files within the `raw/` directory before running analysis; files ending in `*.gpkg.tmp_rtree_uk_places.db` will not be overwritten and will cause errors.
+_**NOTE:** Please ensure that there are no residual files within the `raw/` directory before running analysis; files ending in `*.gpkg.tmp_rtree_uk_places.db` will not be overwritten and will cause errors._
 
 ### Replicate UK results
 
