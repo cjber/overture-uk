@@ -28,11 +28,11 @@ _**NOTE:** Please ensure that there are no residual files within the `raw/` dire
  Note that full replication of this dataset requires the following files that cannot be reditributed:
 
 ```bash
-"~/data/OA_2021_BGC.gpkg": Output Areas for 2021
-"~/data/OA_lookup-2021.csv": Output Areas lookup for 2021
-"~/data/SG_DataZoneBdry_2011.zip": Scotland DataZones for 2011
-"~/data/NI_DZ21.zip": Northern Ireland DataZones for 2021
-"~/data/LAD_BUC_2022.gpkg": Local Authority Districts for 2022
+"~/data/OA_2021_BGC.gpkg": Output Areas for 2021 (https://geoportal.statistics.gov.uk/datasets/e2796301ed1c419fafe8bfa2839cc75c_0)
+"~/data/OA_lookup-2021.csv": Output Areas lookup for 2021 (https://geoportal.statistics.gov.uk/datasets/4d6cf4e41ec845f6bdf5056499c37578_0)
+"~/data/SG_DataZoneBdry_2011.zip": Scotland DataZones for 2011 (https://spatialdata.gov.scot/geonetwork/srv/api/records/7d3e8709-98fa-4d71-867c-d5c8293823f2)
+"~/data/NI_DZ21.zip": Northern Ireland DataZones for 2021 (https://www.nisra.gov.uk/support/geography/data-zones-census-2021)
+"~/data/LAD_BUC_2022.gpkg": Local Authority Districts for 2022 (https://geoportal.statistics.gov.uk/datasets/42af123c4663466496dafb4c8fcb0c82_0)
 ```
 
 Without these files, the processing will retrieve and clean the UK Overture data, but the final stage of post-processing to attach census information and remove non-UK points will **fail**. Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area please see the next section.
