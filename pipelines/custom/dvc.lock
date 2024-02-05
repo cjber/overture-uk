@@ -6,17 +6,17 @@ stages:
     outs:
     - path: ./data/raw/nepal_places.gpkg
       hash: md5
-      md5: 53cb98b9b11a3dd166aeefeec8b81c5d
+      md5: 4138a074a6be7e6e0ccaa92116373ca7
       size: 108433408
   clean:
     cmd: python -m src.clean --filename nepal_places
     deps:
     - path: ./data/raw/nepal_places.gpkg
       hash: md5
-      md5: 53cb98b9b11a3dd166aeefeec8b81c5d
+      md5: 4138a074a6be7e6e0ccaa92116373ca7
       size: 108433408
     outs:
     - path: ./data/processed/nepal_places.parquet
       hash: md5
-      md5: b3e8ef6d3595f1cf3a499e9284fbbb95
-      size: 32870368
+      md5: 536ff0669afa7c2d6ec23b8690440cea
+      size: 32870326
