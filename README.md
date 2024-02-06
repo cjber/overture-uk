@@ -14,7 +14,7 @@ It is highly recommended to use a virtual environment to reproduce these results
 
 2. Ensure the python version is `>=3.11` (I recommend using `pyenv`).
 
-2. `pip install -f requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
+2. `pip install -r requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
 
 3. Run `dvc init` (only if `.dvc` directory is missing)
 
