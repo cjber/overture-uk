@@ -12,7 +12,7 @@ It is highly recommended to use a virtual environment to reproduce these results
 
 1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture-uk`.
 
-2. Ensure the python version is `>=3.11,<=3.12` (I recommend using `pyenv`).
+2. Ensure the python version is `>=3.11,<=3.12` (I recommend using `pyenv` or `conda`).
 
 2. `pip install -r requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
 
@@ -49,7 +49,7 @@ To retrieve the Overture data for these bounding boxes, first initialise the pro
 
 1. Edit `pipelines/custom/params.yaml`: Adjust the `filename` and `bounds` as necessary. Smaller areas will be much faster.
 
-`cat pipelines/custom/params.yaml`
+Inside `pipelines/custom/params.yaml`:
 ```bash
 # filename: nepal_places
 # bounds:
