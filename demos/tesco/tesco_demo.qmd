@@ -34,14 +34,24 @@ tesco = df.loc[df["brand_name_value"] == "Tesco"]
 len(tesco)
 ```
 
-We then plot these points, colouring by the name of each location:
+Note that the `names_value` column also contains some Tesco locations that are tagged by the `brand_name_value` column. We can identify these and ensure that they are considered supermarkets or convenience stores using:
 
-> **NOTE:** The Local Authority Boundaries for the United Kingdom is available [here](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-may-2023-boundaries-uk-buc/explore).
+```{python}
+tesco_names = df.loc[
+    df["names_value"].str.contains("Tesco|Tesco Express|Tesco Extra|Tesco Metro")
+    & (df["category_main"].isin(["supermarket", "convenience_store"]))
+]
+len(tesco_names)
+```
+
+For our plot we choose Tesco locations identified by their brand column, and colour by the name of each location:
+
+
 
 ```{python} 
 fig, ax = plt.subplots(figsize=(10, 10))
 
-
+# The Local Authority Boundaries for the United Kingdom are available from https://geoportal.statistics.gov.uk/datasets/79a4e87783be4b6bbb96ddad6dda52a3_0/explore
 lad = gpd.GeoSeries(gpd.read_file("~/data/LAD_BUC_2022.gpkg").unary_union, crs=27700)
 
 gpd.GeoSeries(lad).plot(facecolor="lightgrey", edgecolor="black", ax=ax)

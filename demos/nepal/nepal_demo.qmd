@@ -7,20 +7,21 @@ format:
     embed-resources: true
 ---
 
-The following document demonstrates the ability to easily query the Overture dataset using this python project. 
+The following document demonstrates the ability to easily query the Overture dataset using this python project. Much of this information is similarly available within the README.md file.
 
 ## Setup Environment
 
-I strongly recommend you use a virtual environment to manage the dependencies in the project. This project uses [pdm](https://pdm.fming.dev/), however, any other tool like `pip` with `virtualenv` or `conda` could be used.
+I strongly recommend you use a virtual environment to manage the dependencies in the project. This project uses [pdm](https://pdm.fming.dev/), however, any other tool like `pip` with `python -m venv` or `conda` could be used.
 
-1. Clone this repository locally: `Anonymised`
+1. Clone this repository locally: `Anonymised` (ANON: Download and unzip the FigShare `overture-uk` zip)
 
-2. Ensure the local `python` version is `3.11` or greater (A tool like `pyenv` could be used).
+2. Ensure the local `python` version is `3.11.x` (Tools like `pyenv` or `conda` can be used to manage this).
 
-3. Install project dependencies from the `pyproject.toml` file
-    - `pip install .` for `pip`
-    - `pdm install` for `pdm`
-    - `conda install` for `conda`
+3. Install project dependencies.
+    - `pip install -r requirements.txt` for `pip`.
+    - `pdm install` for `pdm`.
+
+4. ANON: Some directories were removed for review, to regenerate them please run `git init` and `dvc init`.
 
 ## Query Overture Dataset
 
