@@ -8,22 +8,23 @@ Different geographic extents may be specified to retrieve data for different reg
 
 ## Reproduce results
 
-It is highly recommended to use a virtual environment to reproduce these results locally (e.g. using `python -m venv`).
+It is highly recommended to use a virtual environment to reproduce these results locally (e.g. using `python -m venv` or [Anaconda](https://www.anaconda.com/download), which is likely the easiest approach on a Windows system).
 
-1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture-uk`.
+1. Unzip the main file `overture-uk.zip` and enter the directory `cd overture-uk`. (ANON: Following publication these scripts will be hosted on a Public GitHub repository)
 
-2. Ensure the python version is `>=3.11,<=3.12` (I recommend using `pyenv` or `conda`).
+2. Ensure the local python version is `>=3.11,<=3.12` (I recommend using `pyenv` or `conda`).
 
-2. `pip install -r requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work.
+2. `pip install -r requirements.txt` or equivalent; e.g. This projects uses `pdm` so `pdm install` will work and instead uses the `pyproject.toml` file to identify dependencies.
 
-3. Run `dvc init` (only if `.dvc` directory is missing)
+**WARNING:** Typical `conda` installation may fail due to the way `pdm` generated the `requirements.txt` file. It is recommended to only use `conda` to manage the python version if preferred, but installation of dependencies should be attempted though `pip` (which is included in a new `conda` environment by default).
 
+3. Run `dvc init` to generate a `.dvc` directory, and `git init` to generate a `.git` directory, which allow `dvc` commands to function correctly. (ANON: Files were removed for anonymity).
 
-_**NOTE:** Please ensure that there are no residual files within the `raw/` directory before running analysis; files ending in `*.gpkg.tmp_rtree_uk_places.db` will not be overwritten and will cause errors._
+_**NOTE:** Please ensure that there are no residual files within the `raw/` directory (if it exists) before running analysis; files ending in `*.gpkg.tmp_rtree_uk_places.db` will not be overwritten and will cause errors. This will only be the case if previous runs have been attempted and cancelled before completing._
 
 ### Replicate UK results
 
- Note that full replication of this dataset requires the following files that cannot be reditributed:
+First note that full replication of this dataset requires the following files that cannot be redistributed. They must be named as shown and in the correct directory (`$HOME/data`):
 
 ```bash
 "~/data/OA_2021_BGC.gpkg": Output Areas for 2021 (https://geoportal.statistics.gov.uk/datasets/e2796301ed1c419fafe8bfa2839cc75c_0)
@@ -33,7 +34,7 @@ _**NOTE:** Please ensure that there are no residual files within the `raw/` dire
 "~/data/LAD_BUC_2022.gpkg": Local Authority Districts for 2022 (https://geoportal.statistics.gov.uk/datasets/42af123c4663466496dafb4c8fcb0c82_0)
 ```
 
-Without these files, the processing will retrieve and clean the UK Overture data, but the final stage of post-processing to attach census information and remove non-UK points will **fail**. Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area please see the next section.
+Without these files, the processing will retrieve and clean the UK Overture data, but the final stage of post-processing to attach census information and remove non-UK points will **fail**. Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area _please see the next section_.
 
 To replicate our UK results, first set up the project as instructed above, then:
 
