@@ -11,11 +11,11 @@ The following document demonstrates the ability to easily query the Overture dat
 
 ## Setup Environment
 
-I strongly recommend you use a virtual environment to manage the dependencies in the project. This project uses [pdm](https://pdm.fming.dev/), however any other tool like `pip` with `virtualenv` or `conda` could be used.
+I strongly recommend you use a virtual environment to manage the dependencies in the project. This project uses [pdm](https://pdm.fming.dev/), however, any other tool like `pip` with `virtualenv` or `conda` could be used.
 
 1. Clone this repository locally: `Anonymised`
 
-2. Ensure local `python` version is `3.11` or greater
+2. Ensure the local `python` version is `3.11` or greater (A tool like `pyenv` could be used).
 
 3. Install project dependencies from the `pyproject.toml` file
     - `pip install .` for `pip`
@@ -39,7 +39,7 @@ bounds:
 2. Run `dvc repro pipelines/custom/params.yaml` to retrieve and clean the Nepal data.
     - The cleaned dataset will be saved to `data/processed/nepal_places.parquet`.
 
-> ___Note:__ For large datasets, this process will take a long time._
+> _**Note:** For large datasets, this process will take a long time._
 
 ## Generate Analysis
 
