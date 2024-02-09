@@ -18,7 +18,7 @@ It is highly recommended to use a virtual environment to reproduce these results
 
 **WARNING:** Typical `conda` installation may fail due to the way `pdm` generated the `requirements.txt` file. It is recommended to only use `conda` to manage the python version if preferred, but installation of dependencies should be attempted though `pip` (which is included in a new `conda` environment by default).
 
-3. Run `dvc init` to generate a `.dvc` directory, and `git init` to generate a `.git` directory, which allow `dvc` commands to function correctly. (ANON: These directories were removed for anonymity).
+3. Run `git init` to generate a `.git` directory, and `dvc init` to generate a `.dvc` directory, which allow `dvc` commands to function correctly. (ANON: These directories were removed for anonymity).
 
 _**NOTE:** Please ensure that there are no residual files within the `raw/` directory (if it exists) before running analysis; files ending in `*.gpkg.tmp_rtree_uk_places.db` will not be overwritten and will cause errors. This will only be the case if previous runs have been attempted and cancelled before completing._
 
