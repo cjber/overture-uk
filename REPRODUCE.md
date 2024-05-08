@@ -25,27 +25,27 @@ Please ensure that there are no residual files within the `raw/` directory (if i
 
 Note that full replication of this dataset requires the following files that cannot be redistributed. They must be named as shown and in the correct directory (`$HOME/data`):
 
-* `"~/data/OA_2021_BGC.gpkg": Output Areas for 2021 (BGC)` 
+* `"~/data/OA_2021_BGC.gpkg": Output Areas for 2021 (GeoPackage)` 
 
 > [https://geoportal.statistics.gov.uk/maps/6beafcfd9b9c4c9993a06b6b199d7e6d](https://geoportal.statistics.gov.uk/maps/6beafcfd9b9c4c9993a06b6b199d7e6d)
 
-* `"~/data/OA_lookup-2021.csv": Output Areas lookup for 2021` 
+* `"~/data/OA_lookup-2021.csv": Output Areas lookup for 2021 (CSV)` 
 
 > [https://geoportal.statistics.gov.uk/maps/4d6cf4e41ec845f6bdf5056499c37578_0](https://geoportal.statistics.gov.uk/maps/4d6cf4e41ec845f6bdf5056499c37578_0)
 
-* `"~/data/SG_DataZoneBdry_2011.zip": Scotland DataZones for 2011` 
+* `"~/data/SG_DataZoneBdry_2011.zip": Scotland DataZones for 2011 (Shapefile)` 
 
 > [https://spatialdata.gov.scot/geonetwork/srv/api/records/7d3e8709-98fa-4d71-867c-d5c8293823f2](https://spatialdata.gov.scot/geonetwork/srv/api/records/7d3e8709-98fa-4d71-867c-d5c8293823f2)
 
-* `"~/data/NI_DZ21.zip": Northern Ireland DataZones for 2021` 
+* `"~/data/NI_DZ21.zip": Northern Ireland DataZones for 2021 (Shapefile)` 
 
 > [https://www.nisra.gov.uk/support/geography/data-zones-census-2021](https://spatialdata.gov.scot/geonetwork/srv/api/records/7d3e8709-98fa-4d71-867c-d5c8293823f2)
 
-* `"~/data/LAD_BUC_2022.gpkg": Local Authority Districts for 2022` 
+* `"~/data/LAD_BUC_2022.gpkg": Local Authority Districts for 2022 (GeoPackage)` 
 
-> [https://geoportal.statistics.gov.uk/maps/42af123c4663466496dafb4c8fcb0c82_0](https://geoportal.statistics.gov.uk/maps/42af123c4663466496dafb4c8fcb0c82_0)
+> [https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2022-boundaries-uk-buc-2/explore](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2022-boundaries-uk-buc-2/explore)
 
-**NOTE:** If any of the above links no longer work, please query the [Open Geography Portal](https://geoportal.statistics.gov.uk/) to find them.
+**NOTE:** If any of the above links no longer work, please query the [Open Geography Portal](https://geoportal.statistics.gov.uk/), [Spatial Data Scotland](https://www.spatialdata.gov.scot), or [NISRA](https://www.nisra.gov.uk) to find them.
 
 Without these files, the processing will retrieve and clean the UK Overture data, but the final stage of post-processing to attach census information and remove non-UK points will **fail**. Additionally, the process of retrieving and cleaning all UK POIs takes a very long time. If you are interested only in reproducing the download and cleaning stage for another area _please see the next section_.
 
