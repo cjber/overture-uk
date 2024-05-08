@@ -1,6 +1,6 @@
 <div align="center">
 
-# Overture POI data for the United Kingdom: a comprehensive, queryable open data product, validated against Geolytix supermarket data
+# Overture POI data for the United Kingdom
 
 **FigShare:** https://doi.org/10.6084/m9.figshare.24347653
 
