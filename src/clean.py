@@ -46,7 +46,7 @@ def process_columns(df: gpd.GeoDataFrame, cols: list[str]) -> gpd.GeoDataFrame:
     df = df.drop(cols, axis=1)
     df = pd.concat([df, names, categories, addresses, sources, brand], axis=1)
 
-    df["lat"], df["lng"] = df.geometry.x, df.geometry.y
+    df["lng"], df["lat"] = df.geometry.x, df.geometry.y
 
     for i in range(1, 10):
         df[f"h3_0{i}"] = df.h3.geo_to_h3(i).index
