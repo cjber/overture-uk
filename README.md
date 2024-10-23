@@ -10,7 +10,7 @@
 
 </div>
 
-[Patrick Ballantyne](https://www.liverpool.ac.uk/environmental-sciences/staff/patrick-ballantyne) \[[`@DrPatBallantyne`](http://twitter.com/alel_domi)\]<sup>1\*</sup> &
+[Patrick Ballantyne](https://www.liverpool.ac.uk/environmental-sciences/staff/patrick-ballantyne) \[[`@DrPatBallantyne`](http://twitter.com/DrPatBallantyne)\]<sup>1\*</sup> &
 [Cillian Berragan](https://www.liverpool.ac.uk/geographic-data-science/our-people/) \[[`@cjberragan`](http://twitter.com/cjberragan)\]<sup>1</sup>
 
 <sup>1</sup> _Geographic Data Science Lab, University of Liverpool, Liverpool, United Kingdom_  
